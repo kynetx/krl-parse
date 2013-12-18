@@ -5,8 +5,9 @@ use Getopt::Std;
 use LWP::UserAgent;
 use HTTP::Request;
 use URI::Escape;
+use JSON -support_by_pp;
 
-use Data::Dumper;
+#use Data::Dumper;
 
 # global options
 use vars qw/ %opt /;
@@ -31,9 +32,6 @@ if (-e $krl_file) {
 
 # print $ruleset;
 
-
-# my $krl_validate_url = "http://requestb.in/vgdgqkvg";
-
 my $krl_validate_url = "http://kibdev.kobj.net/manage/validate/";
 
 my $parameters = ['flavor' => 'json',
@@ -43,9 +41,21 @@ my $parameters = ['flavor' => 'json',
 
 my $ua = LWP::UserAgent->new(); 
 my $response = $ua->post($krl_validate_url, $parameters);
-my $content = $response->content;
 
-print $content;
+#print $response->content;
+
+my $json = JSON->new->allow_nonref;
+
+my $content = $json->allow_singlequote->decode($response->content);
+
+if ($content->{'status'} eq 'error') {
+  print $content->{'result'}, "\n";
+} elsif (($content->{'status'} eq 'success')) {
+  print "OK\n";
+} else {
+  warn "Invalid content returned";
+}
+
 
 1;
 

@@ -21,4 +21,4 @@ Depends on
 	LWP::UserAgent;
 	HTTP::Request;
 	URI::Escape;
-
+	JSON
