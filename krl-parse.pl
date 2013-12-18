@@ -11,7 +11,7 @@ use JSON -support_by_pp;
 
 # global options
 use vars qw/ %opt /;
-my $opt_string = '?hf:';
+my $opt_string = '?hvf:';
 getopts( "$opt_string", \%opt ) or usage();
 
 usage() if $opt{'h'} || $opt{'?'};
@@ -51,7 +51,13 @@ my $content = $json->allow_singlequote->decode($response->content);
 if ($content->{'status'} eq 'error') {
   print $content->{'result'}, "\n";
 } elsif (($content->{'status'} eq 'success')) {
-  print "OK\n";
+  if ($opt{'v'}) {
+    $json = $json->pretty(1);
+    $json = $json->indent_length(4);
+    print $json->encode($content->{'result'}), "\n";
+  } else {
+    print "OK\n";
+  }
 } else {
   warn "Invalid content returned";
 }
@@ -73,6 +79,7 @@ usage: $0 [-h?] -f filename
 
  -h|?       : this (help) message
  -f file    : input file
+ -v         : be verbose (return parse tree)
 
 example: $0 -f a16x565.krl
 
