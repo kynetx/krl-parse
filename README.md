@@ -23,7 +23,7 @@ Depends on
 	URI::Escape;
 	JSON
 
-If you do not have some of these packages and you're not a Perl person, you first need to [install cpanminus](http://cpanmin.us) and run the following command:
+If you do not have some of these packages and you're not a Perl person, you first need to [install cpanminus](http://cpanmin.us) by running the following command:
 
 	curl -L http://cpanmin.us | perl - App::cpanminus
 
