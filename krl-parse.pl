@@ -32,7 +32,8 @@ if (-e $krl_file) {
 
 # print $ruleset;
 
-my $krl_validate_url = "http://kibdev.kobj.net/manage/validate/";
+my $krl_validate_url = "http://cs.kobj.net/manage/validate/";
+my $krl_flush_url = "http://cs.kobj.net/ruleset/flush/";
 
 my $parameters = ['flavor' => 'json',
 #		  'rule' => uri_escape($ruleset)
