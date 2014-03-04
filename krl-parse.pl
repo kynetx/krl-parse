@@ -46,8 +46,12 @@ my $response = $ua->post($krl_validate_url, $parameters);
 #print $response->content;
 
 my $json = JSON->new->allow_nonref;
+my $content = eval {
+    $json->allow_singlequote->decode($response->content)
+};
+die "Parser failed miserably: ", $response->content if $@;
 
-my $content = $json->allow_singlequote->decode($response->content);
+
 
 if ($content->{'status'} eq 'error') {
   print $content->{'result'}, "\n";
