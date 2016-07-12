@@ -13,6 +13,8 @@ validates the KRL in the named file.
 
 returns help message. 
 
+You should consider using the included Github pre-commit hook to automate parsing rulesets before they're checked into Github. 
+
 Proudly crafted in Perl. 
 
 Depends on 
